@@ -17,15 +17,17 @@ app.post("/", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const check = await collection.findOne({ email: email });
+    const user = await collection.findOne({ email: email });
 
-    if (check) {
-      res.json("exist");
-    } else {
+    if (!user) {
       res.json("notexist");
+    } else if (user.password === password) {
+      res.json("success");
+    } else {
+      res.json("wrongpassword");
     }
   } catch (e) {
-    res.json("notexist");
+    res.json("error");
   }
 });
 

@@ -18,10 +18,12 @@ const Login = () => {
         password,
       });
 
-      if (res.data === "exist") {
+      if (res.data === "success") {
         navigate("/home", { state: { id: email } });
       } else if (res.data === "notexist") {
         alert("User have not sign up");
+      } else if (res.data === "wrongpassword") {
+        alert("Wrong password");
       }
     } catch (error) {
       console.log(error);
